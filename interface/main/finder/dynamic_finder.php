@@ -12,13 +12,20 @@ require_once("../../globals.php");
 $popup = empty($_REQUEST['popup']) ? 0 : 1;
 
 // Generate some code based on the list of columns.
-//
+
+
+
+//Variable
 $colcount = 0;
 $header0 = "";
 $header  = "";
 $coljson = "";
-$res = sqlStatement("SELECT option_id, title FROM list_options WHERE " .
-  "list_id = 'ptlistcols' AND activity = 1 ORDER BY seq, title");
+
+//sql fetch from db
+$res = sqlStatement("SELECT option_id, title FROM list_options WHERE list_id = 'ptlistcols' AND activity = 1 ORDER BY seq, title");
+
+
+//nope
 while ($row = sqlFetchArray($res)) {
     $colname = $row['option_id'];
     $title = xl_list_label($row['title']);
@@ -35,6 +42,8 @@ while ($row = sqlFetchArray($res)) {
     ++$colcount;
 }
 ?>
+
+<!-- html -->
 <html>
 <head>
 <?php html_header_show(); ?>
@@ -79,7 +88,7 @@ $(document).ready(function() {
     if (!empty($GLOBALS['gbl_pt_list_new_window'])) {
         echo ' checked';
     } ?> /><?php
-  echo xlt('Open in New Window'); ?></form>");
+    echo xlt('Open in New Window'); ?></form>");
 
  // This is to support column-specific search fields.
  // Borrowed from the multi_filter.html example.
