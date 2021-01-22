@@ -213,7 +213,7 @@ if (empty($collectthis)) {
         // And auto-create a new encounter if appropriate.
         if (!empty($_POST['form_pid'])) {
             if ($GLOBALS['auto_create_new_encounters'] && $event_date == date('Y-m-d') && (is_checkin($_POST['form_apptstatus']) == '1') && !is_tracker_encounter_exist($event_date, $appttime, $_POST['form_pid'], $_GET['eid'])) {
-                $encounter = todaysEncounterCheck($_POST['form_pid'], $event_date, $_POST['form_comments'], $_POST['facility'], $_POST['billing_facility'], $_POST['form_provider'], $_POST['form_category'], false);
+                $encounter = todaysEncounterCheck($_POST['form_pid'], $event_date, $_POST['form_comments'],$_POST['form_number'], $_POST['facility'], $_POST['billing_facility'], $_POST['form_provider'], $_POST['form_category'], false);
                 if ($encounter) {
                         $info_msg .= xl("New encounter created with id");
                         $info_msg .= " $encounter";
@@ -240,7 +240,7 @@ if (empty($collectthis)) {
         if (!empty($_POST['form_gid'])) {
                                                                                 // status Took Place is the check in of therapy group
             if ($GLOBALS['auto_create_new_encounters'] && $event_date == date('Y-m-d') && $_POST['form_apptstatus'] == '=') {
-                $encounter = todaysTherapyGroupEncounterCheck($_POST['form_gid'], $event_date, $_POST['form_comments'], $_POST['facility'], $_POST['billing_facility'], $_POST['form_provider'], $_POST['form_category'], false, $pc_eid);
+                $encounter = todaysTherapyGroupEncounterCheck($_POST['form_gid'], $event_date, $_POST['form_comments'],$_POST['form_number'], $_POST['facility'], $_POST['billing_facility'], $_POST['form_provider'], $_POST['form_category'], false, $pc_eid);
                 if ($encounter) {
                     $info_msg .= xl("New group encounter created with id");
                     $info_msg .= " $encounter";
@@ -599,6 +599,7 @@ if (empty($collectthis)) {
                         "pc_title = '" . add_escape_custom($_POST['form_title']) . "', " .
                         "pc_time = NOW(), " .
                         "pc_hometext = '" . add_escape_custom($_POST['form_comments']) . "', " .
+                        "pc_number = '" . add_escape_custom($_POST['form_number']) . "', " .
                         "pc_room = '" . add_escape_custom($_POST['form_room']) . "', " .
                         "pc_informant = '" . add_escape_custom($_SESSION['authUserID']) . "', " .
                         "pc_eventDate = '" . add_escape_custom($event_date) . "', " .
@@ -694,6 +695,7 @@ if (empty($collectthis)) {
                     "pc_title = '" . add_escape_custom($_POST['form_title']) . "', " .
                     "pc_time = NOW(), " .
                     "pc_hometext = '" . add_escape_custom($_POST['form_comments']) . "', " .
+                    "pc_number = '" . add_escape_custom($_POST['form_number']) . "', " .
                     "pc_room = '" . add_escape_custom($_POST['form_room']) . "', " .
                     "pc_informant = '" . add_escape_custom($_SESSION['authUserID']) . "', " .
                     "pc_eventDate = '" . add_escape_custom($event_date) . "', " .
@@ -879,6 +881,7 @@ if (empty($collectthis)) {
     $patienttitle = array();
     $pcroom = "";
     $hometext = "";
+    $pc_number = "";
     $row = array();
     $informant = "";
     $groupid = '';
@@ -934,6 +937,7 @@ if (empty($collectthis)) {
         $recurrence_end_date = ($row['pc_endDate'] && $row['pc_endDate'] != '0000-00-00') ? $row['pc_endDate'] : null;
         $pcroom = $row['pc_room'];
         $hometext = $row['pc_hometext'];
+        $pc_number = $row['pc_number'];
         if (substr($hometext, 0, 6) == ':text:') {
             $hometext = substr($hometext, 6);
         }
@@ -1914,6 +1918,14 @@ if ($repeatexdate != "") {
   </td>
  </tr>
 
+ <tr>
+  <td nowrap>
+   <b><?php echo xlt('Mobile number'); ?>:</b>
+  </td>
+  <td colspan='4' nowrap>
+   <input class='input-sm' type="text" size='40' name='form_number' style='width:100%'  value='<?php echo attr($pc_number); ?>' title='<?php echo xla('Optional information about this Number event');?>' />
+  </td>
+ </tr>
 
 <?php
  // DOB is important for the clinic, so if it's missing give them a chance

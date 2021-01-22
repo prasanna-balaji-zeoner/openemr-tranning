@@ -811,3 +811,14 @@ ALTER TABLE form_misc_billing_options CHANGE `icn_resubmission_number` `icn_resu
 #IfMissingColumn users patient_menu_role
 ALTER TABLE `users` ADD `patient_menu_role` VARCHAR(50) NOT NULL DEFAULT 'standard';
 #EndIf
+
+
+# Test to check the purpouse of sql upgrade .
+
+CREATE TABLE `openemr`.`Zeoner` (
+  `sno` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `p_address` VARCHAR(45) NULL,
+  `p_insurace_num` INT NULL,
+  `p_age` VARCHAR(45) NULL,
+  PRIMARY KEY (`sno`));

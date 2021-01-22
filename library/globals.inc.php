@@ -345,6 +345,13 @@ $GLOBALS_METADATA = array(
             '0',                              // default = false
             xl('Enables the old Charges panel for entering billing codes and payments. Not recommended, use the Fee Sheet instead.')
         ),
+        // Help menu in the administration -> global 
+        'enable_help_menu' => array(
+            xl('Enable Help menu'),
+            'bool',                           // data type
+            '0',                              // default = true
+            xl('Enable Help menu for your assistance')
+        ),
 
         // TajEmo Work BY CB 2012/06/21 10:42:31 AM added option to Hide Fees
         'enable_fees_in_left_menu' => array(

@@ -2185,5 +2185,14 @@
     "url": "/interface/main/about_page.php",
     "children": [],
     "requirement": 0
+  },
+  {
+    "label": "Help Menu",
+    "menu_id": "Popup:Help Menu",
+    "target": "msc",
+    "url": "/interface/main/help_menu.php",
+    "children": [],
+    "requirement": 0,
+    "global_req": "enable_help_menu"
   }
 ]
